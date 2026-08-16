@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deals & Offers - Adam's Tech</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
+        <a href="/" class="logo">🔧 Adam's Tech</a>
+        <nav class="nav-main">
+          <a href="/">Home</a>
+          <a href="shop.html">Shop</a>
+        </nav>
+        <ul class="header-icons">
+          <li>
+            <a href="cart.html" class="icon-btn"
+              >🛒 <span class="badge-count cart-badge"></span
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>⚡ Deals & Offers</h1>
+      <p>Don't miss out on our amazing discounts</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container" style="margin-bottom: 3rem">
+      <!-- FLASH SALE -->
+      <section class="section">
+        <h2 class="section-title">🔥 Flash Sale - 24 Hours Only</h2>
+        <div class="product-grid" id="flashSaleProducts"></div>
+      </section>
+
+      <!-- DAILY DEALS -->
+      <section class="section">
+        <h2 class="section-title">☀️ Daily Deals</h2>
+        <div class="product-grid" id="dailyDealsProducts"></div>
+      </section>
+
+      <!-- WEEKEND DEALS -->
+      <section class="section">
+        <h2 class="section-title">🎉 Weekend Specials</h2>
+        <div class="product-grid" id="weekendDealsProducts"></div>
+      </section>
+
+      <!-- BUNDLE OFFERS -->
+      <section class="section">
+        <h2 class="section-title">📦 Bundle Offers</h2>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+          "
+        >
+          <div
+            style="
+              background: white;
+              border-radius: 12px;
+              padding: 1.5rem;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <h3>Smartphone Bundle</h3>
+            <div style="color: #6b7280; margin: 1rem 0">
+              <p style="margin: 0.25rem 0">✓ Smartphone</p>
+              <p style="margin: 0.25rem 0">✓ Screen Protector</p>
+              <p style="margin: 0.25rem 0">✓ Phone Case</p>
+              <p style="margin: 0.25rem 0">✓ Charger & Cable</p>
+            </div>
+            <div
+              style="
+                font-size: 1.3rem;
+                color: #10b981;
+                font-weight: 700;
+                margin: 1rem 0;
+              "
+            >
+              Save 15%
+            </div>
+            <button class="btn btn-primary" style="width: 100%">
+              View Bundle
+            </button>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border-radius: 12px;
+              padding: 1.5rem;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <h3>Laptop Essentials</h3>
+            <div style="color: #6b7280; margin: 1rem 0">
+              <p style="margin: 0.25rem 0">✓ Laptop</p>
+              <p style="margin: 0.25rem 0">✓ Laptop Bag</p>
+              <p style="margin: 0.25rem 0">✓ Mouse & Keyboard</p>
+              <p style="margin: 0.25rem 0">✓ USB Hub</p>
+            </div>
+            <div
+              style="
+                font-size: 1.3rem;
+                color: #10b981;
+                font-weight: 700;
+                margin: 1rem 0;
+              "
+            >
+              Save 20%
+            </div>
+            <button class="btn btn-primary" style="width: 100%">
+              View Bundle
+            </button>
+          </div>
+
+          <div
+            style="
+              background: white;
+              border-radius: 12px;
+              padding: 1.5rem;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <h3>Gaming Setup</h3>
+            <div style="color: #6b7280; margin: 1rem 0">
+              <p style="margin: 0.25rem 0">✓ Gaming Console</p>
+              <p style="margin: 0.25rem 0">✓ Extra Controller</p>
+              <p style="margin: 0.25rem 0">✓ Gaming Headset</p>
+              <p style="margin: 0.25rem 0">✓ Game Titles (2x)</p>
+            </div>
+            <div
+              style="
+                font-size: 1.3rem;
+                color: #10b981;
+                font-weight: 700;
+                margin: 1rem 0;
+              "
+            >
+              Save 25%
+            </div>
+            <button class="btn btn-primary" style="width: 100%">
+              View Bundle
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLEARANCE SECTION -->
+      <section class="section">
+        <h2 class="section-title">🏷️ Clearance Sale</h2>
+        <p style="color: #6b7280; margin-bottom: 1.5rem">
+          Limited stock on these clearance items - up to 50% off!
+        </p>
+        <div class="product-grid" id="clearanceProducts"></div>
+      </section>
+
+      <!-- HOW TO GET MORE DEALS -->
+      <section
+        class="section"
+        style="
+          background: linear-gradient(135deg, #1f2937 0%, #3b82f6 100%);
+          color: white;
+          padding: 3rem;
+          border-radius: 12px;
+          text-align: center;
+        "
+      >
+        <h2 style="margin-bottom: 1rem; border: none; color: white">
+          Want to Get Even Better Deals?
+        </h2>
+        <p style="margin-bottom: 1.5rem">
+          Subscribe to our newsletter and follow us on social media for
+          exclusive offers
+        </p>
+        <div
+          style="
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <input
+            type="email"
+            placeholder="Enter your email"
+            style="
+              padding: 0.75rem;
+              border: none;
+              border-radius: 6px;
+              flex: 1;
+              min-width: 250px;
+            "
+          />
+          <button class="btn btn-secondary" style="white-space: nowrap">
+            Subscribe
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Adam's Tech. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Flash sale products (random selection with discounts)
+        const flashSale = products.filter((p) => p.originalPrice).slice(0, 8);
+        displayProducts(flashSale, "flashSaleProducts");
+
+        // Daily deals
+        const dailyDeals = products
+          .filter((p) => p.badge === "HOT DEAL")
+          .slice(0, 8);
+        displayProducts(
+          dailyDeals.length > 0 ? dailyDeals : products.slice(10, 18),
+          "dailyDealsProducts",
+        );
+
+        // Weekend deals
+        const weekendDeals = products
+          .sort((a, b) => b.rating - a.rating)
+          .slice(0, 8);
+        displayProducts(weekendDeals, "weekendDealsProducts");
+
+        // Clearance
+        const clearance = products
+          .filter((p) => p.badge === "SALE")
+          .slice(0, 8);
+        displayProducts(
+          clearance.length > 0 ? clearance : products.slice(30, 38),
+          "clearanceProducts",
+        );
+
+        cartManager.updateBadge();
+      });
+    </script>
+  </body>
+</html>

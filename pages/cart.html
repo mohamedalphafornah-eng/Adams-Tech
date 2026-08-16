@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart - Adam's Tech</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
+        <a href="/" class="logo">🔧 Adam's Tech</a>
+        <button class="mobile-menu-toggle">☰</button>
+        <nav class="nav-main">
+          <a href="/">Home</a>
+          <a href="shop.html">Shop</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." />
+          <button>🔍</button>
+        </div>
+        <ul class="header-icons">
+          <li><a href="account.html" class="icon-btn">👤</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>Shopping Cart</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container" style="margin-bottom: 3rem">
+      <div class="cart-container" id="cartContent">
+        <!-- Will be populated by JavaScript -->
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Adam's Tech. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      function displayCart() {
+        const cart = cartManager.cart;
+        const container = document.getElementById("cartContent");
+
+        if (cart.length === 0) {
+          container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🛒</div>
+            <h2>Your cart is empty</h2>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">Add some amazing products to get started!</p>
+            <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+          </div>
+        `;
+          return;
+        }
+
+        let cartItemsHTML = '<div class="cart-items">';
+        cart.forEach((item) => {
+          cartItemsHTML += `
+          <div class="cart-item">
+            <div class="cart-item-image">
+              <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="cart-item-details">
+              <a href="product-detail.html?id=${item.id}" style="text-decoration: none; color: inherit;">
+                <h3>${item.name}</h3>
+              </a>
+              <p>${item.category}</p>
+              <div class="cart-item-price">Le ${item.price.toLocaleString()}</div>
+              <div class="quantity-control">
+                <button onclick="cartManager.updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                <input type="number" value="${item.quantity}" onchange="cartManager.updateQuantity(${item.id}, parseInt(this.value))">
+                <button onclick="cartManager.updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+              </div>
+              <button onclick="cartManager.removeFromCart(${item.id}); location.reload();" style="color: #ef4444; background: none; border: none; cursor: pointer; font-weight: 600;">Remove</button>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-weight: 700; color: #3b82f6; font-size: 1.1rem;">
+                Le ${(item.price * item.quantity).toLocaleString()}
+              </div>
+            </div>
+          </div>
+        `;
+        });
+        cartItemsHTML += "</div>";
+
+        const subtotal = cartManager.getTotal();
+        const deliveryFee = subtotal > 500000 ? 0 : 15000;
+        const total = subtotal + deliveryFee;
+
+        const cartSummaryHTML = `
+        <div class="cart-summary">
+          <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+          <div class="summary-line">
+            <span>Subtotal:</span>
+            <span>Le ${subtotal.toLocaleString()}</span>
+          </div>
+          <div class="summary-line">
+            <span>Delivery Fee:</span>
+            <span>${deliveryFee === 0 ? "FREE" : "Le " + deliveryFee.toLocaleString()}</span>
+          </div>
+          ${subtotal > 500000 ? '<p style="color: #10b981; font-size: 0.85rem;">✓ Free delivery applied!</p>' : ""}
+          <div class="summary-line total">
+            <span>Total:</span>
+            <span>Le ${total.toLocaleString()}</span>
+          </div>
+          <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center; padding: 1rem; margin-top: 1rem; display: block;">Proceed to Checkout</a>
+          <a href="shop.html" class="btn btn-secondary" style="width: 100%; text-align: center; padding: 1rem; margin-top: 0.5rem; display: block;">Continue Shopping</a>
+        </div>
+      `;
+
+        container.innerHTML = cartItemsHTML + cartSummaryHTML;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        displayCart();
+        cartManager.updateBadge();
+      });
+
+      // Reload cart if items change
+      window.addEventListener("storage", () => {
+        cartManager.cart = StorageManager.getCart();
+        displayCart();
+      });
+    </script>
+  </body>
+</html>

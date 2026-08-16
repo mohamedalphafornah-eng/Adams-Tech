@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation - Adam's Tech</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
+        <a href="/" class="logo">🔧 Adam's Tech</a>
+        <nav class="nav-main">
+          <a href="/">Home</a>
+          <a href="shop.html">Shop</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container" style="margin: 3rem 0">
+      <div style="max-width: 600px; margin: 0 auto; text-align: center">
+        <!-- SUCCESS ICON -->
+        <div style="font-size: 4rem; margin-bottom: 1rem">✅</div>
+
+        <h1 style="color: #10b981; margin-bottom: 0.5rem">
+          Thank You for Your Order!
+        </h1>
+        <p style="font-size: 1.1rem; color: #6b7280; margin-bottom: 2rem">
+          Your order has been successfully placed and confirmed.
+        </p>
+
+        <!-- ORDER NUMBER -->
+        <div
+          style="
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+          "
+        >
+          <p style="color: #166534; margin-bottom: 0.5rem">Order Number</p>
+          <p
+            style="font-size: 1.5rem; font-weight: 700; color: #10b981"
+            id="orderNumber"
+          >
+            ORD-000000000
+          </p>
+        </div>
+
+        <!-- ORDER DETAILS -->
+        <div
+          style="
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+          "
+        >
+          <h2 style="margin-bottom: 1rem; text-align: center">
+            📋 Order Details
+          </h2>
+
+          <div style="margin-bottom: 1.5rem">
+            <h3 style="color: #1f2937; margin-bottom: 0.75rem">Order Items</h3>
+            <div id="orderItems"></div>
+          </div>
+
+          <div
+            style="
+              border-top: 1px solid #e5e7eb;
+              padding-top: 1rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <span>Subtotal:</span>
+              <span id="subtotal">Le 0</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <span>Delivery Fee:</span>
+              <span id="deliveryFee">Le 0</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #3b82f6;
+              "
+            >
+              <span>Total:</span>
+              <span id="total">Le 0</span>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid #e5e7eb; padding-top: 1rem">
+            <h3 style="color: #1f2937; margin-bottom: 0.75rem">
+              Delivery Information
+            </h3>
+            <div id="deliveryInfo"></div>
+          </div>
+        </div>
+
+        <!-- NEXT STEPS -->
+        <div
+          style="
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+          "
+        >
+          <h3 style="color: #0c2d6b; margin-bottom: 0.75rem">
+            📌 What's Next?
+          </h3>
+          <ul style="text-align: left; color: #0c2d6b">
+            <li>✓ You will receive a confirmation SMS shortly</li>
+            <li>✓ Your order will be processed within 24 hours</li>
+            <li>
+              ✓ You will get a delivery confirmation when your order ships
+            </li>
+            <li>✓ Track your order using the order number above</li>
+          </ul>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div style="display: grid; gap: 1rem">
+          <a
+            href="order-tracking.html"
+            class="btn btn-primary"
+            style="padding: 1rem"
+            >Track Your Order</a
+          >
+          <a href="shop.html" class="btn btn-secondary" style="padding: 1rem"
+            >Continue Shopping</a
+          >
+          <a
+            href="/"
+            class="btn"
+            style="
+              padding: 1rem;
+              background: white;
+              border: 1px solid #e5e7eb;
+              color: #1f2937;
+              text-decoration: none;
+              border-radius: 8px;
+              font-weight: 600;
+            "
+            >Back to Home</a
+          >
+        </div>
+
+        <!-- SUPPORT -->
+        <div
+          style="
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+          "
+        >
+          <p style="color: #6b7280; margin-bottom: 1rem">
+            Need help? Contact us:
+          </p>
+          <p style="margin: 0.25rem">📞 Phone: <strong>+23278268113</strong></p>
+          <p style="margin: 0.25rem">
+            📧 Email: <strong>mohamedalphafornah@gmail.com</strong>
+          </p>
+          <a
+            href="https://wa.me/23276123456"
+            target="_blank"
+            style="
+              display: inline-block;
+              background: #25d366;
+              color: white;
+              padding: 0.75rem 1.5rem;
+              border-radius: 6px;
+              text-decoration: none;
+              margin-top: 1rem;
+              font-weight: 600;
+            "
+            >💬 Chat on WhatsApp</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Adam's Tech. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      function loadOrderConfirmation() {
+        const order = JSON.parse(localStorage.getItem("lastOrder"));
+
+        if (!order) {
+          document.querySelector("main").innerHTML =
+            '<div class="empty-state" style="padding: 3rem;"><h2>No order found</h2><p><a href="shop.html" class="btn btn-primary">Continue Shopping</a></p></div>';
+          return;
+        }
+
+        // Order number
+        document.getElementById("orderNumber").textContent = order.orderNumber;
+
+        // Order items
+        let itemsHTML = "";
+        order.items.forEach((item) => {
+          itemsHTML += `
+          <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+            <div>
+              <p style="font-weight: 600; margin: 0;">${item.name}</p>
+              <p style="color: #6b7280; font-size: 0.85rem; margin: 0;">Qty: ${item.quantity}</p>
+            </div>
+            <span style="font-weight: 600;">Le ${(item.price * item.quantity).toLocaleString()}</span>
+          </div>
+        `;
+        });
+        document.getElementById("orderItems").innerHTML = itemsHTML;
+
+        // Totals
+        const subtotal = order.items.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0,
+        );
+        const deliveryFee = subtotal > 500000 ? 0 : 15000;
+        const total = subtotal + deliveryFee;
+
+        document.getElementById("subtotal").textContent =
+          "Le " + subtotal.toLocaleString();
+        document.getElementById("deliveryFee").textContent =
+          deliveryFee === 0 ? "FREE" : "Le " + deliveryFee.toLocaleString();
+        document.getElementById("total").textContent =
+          "Le " + total.toLocaleString();
+
+        // Delivery info
+        const deliveryInfo =
+          order.delivery.method === "home"
+            ? `
+          <p><strong>Method:</strong> Home Delivery</p>
+          <p><strong>Recipient:</strong> ${order.customer.fullName}</p>
+          <p><strong>Address:</strong> ${order.customer.address}, ${order.customer.city}, ${order.customer.district}</p>
+          <p><strong>Phone:</strong> ${order.customer.phone}</p>
+          <p><strong>Estimated Delivery:</strong> ${new Date(order.estimatedDelivery).toLocaleDateString()}</p>
+        `
+            : `
+          <p><strong>Method:</strong> Store Pickup</p>
+          <p><strong>Location:</strong> Adam's Tech - ${order.delivery.location} Branch</p>
+          <p><strong>Ready for pickup:</strong> Within 24-48 hours</p>
+        `;
+        document.getElementById("deliveryInfo").innerHTML = deliveryInfo;
+      }
+
+      document.addEventListener("DOMContentLoaded", loadOrderConfirmation);
+    </script>
+  </body>
+</html>

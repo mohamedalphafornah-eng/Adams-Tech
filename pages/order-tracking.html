@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Tracking - Adam's Tech</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
+        <a href="/" class="logo">🔧 Adam's Tech</a>
+        <nav class="nav-main">
+          <a href="/">Home</a>
+          <a href="shop.html">Shop</a>
+        </nav>
+        <ul class="header-icons">
+          <li><a href="account.html" class="icon-btn">👤</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>📦 Track Your Order</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container" style="margin-bottom: 3rem">
+      <div style="max-width: 600px; margin: 2rem auto">
+        <!-- SEARCH FORM -->
+        <div class="filters-panel">
+          <h2 style="margin-bottom: 1.5rem">Enter Your Order Details</h2>
+          <div class="form-group">
+            <label>Order Number *</label>
+            <input
+              type="text"
+              id="orderNumber"
+              placeholder="e.g., ORD-1234567890"
+            />
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="phoneNumber" placeholder="+232..." />
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="searchOrder()"
+            style="width: 100%"
+          >
+            Track Order
+          </button>
+        </div>
+
+        <!-- ORDER TRACKING RESULT -->
+        <div id="trackingResult" style="margin-top: 2rem; display: none">
+          <div class="filters-panel">
+            <h2 style="margin-bottom: 1.5rem">📍 Order Status</h2>
+
+            <!-- STATUS TIMELINE -->
+            <div style="position: relative; padding: 1rem 0">
+              <div id="statusTimeline"></div>
+            </div>
+
+            <!-- ORDER DETAILS -->
+            <div
+              style="
+                background: #f3f4f6;
+                padding: 1rem;
+                border-radius: 8px;
+                margin-top: 1.5rem;
+              "
+            >
+              <p style="margin: 0.5rem 0">
+                <strong>Order Number:</strong>
+                <span id="trackOrderNumber"></span>
+              </p>
+              <p style="margin: 0.5rem 0">
+                <strong>Order Date:</strong> <span id="trackOrderDate"></span>
+              </p>
+              <p style="margin: 0.5rem 0">
+                <strong>Delivery Method:</strong>
+                <span id="trackDeliveryMethod"></span>
+              </p>
+              <p style="margin: 0.5rem 0">
+                <strong>Estimated Delivery:</strong>
+                <span id="trackEstimatedDelivery"></span>
+              </p>
+            </div>
+
+            <!-- ITEMS -->
+            <div style="margin-top: 1.5rem">
+              <h3 style="margin-bottom: 1rem">Items in Order</h3>
+              <div id="trackItems"></div>
+            </div>
+
+            <!-- TOTAL -->
+            <div
+              style="
+                background: white;
+                border-top: 1px solid #e5e7eb;
+                padding-top: 1rem;
+                margin-top: 1rem;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-weight: 700;
+                  font-size: 1.1rem;
+                  color: #3b82f6;
+                "
+              >
+                <span>Order Total:</span>
+                <span id="trackTotal">Le 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NO RESULT -->
+        <div id="noResult" style="margin-top: 2rem; display: none">
+          <div
+            class="filters-panel"
+            style="background: #fee2e2; border: 1px solid #fca5a5"
+          >
+            <p style="color: #7f1d1d"><strong>⚠️ Order Not Found</strong></p>
+            <p style="color: #7f1d1d">
+              Please check your order number and phone number. If you recently
+              placed an order, it may take a few minutes to appear in the
+              system.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>📞 Need Help?</h3>
+          <p>Contact us: +23278268113</p>
+          <p>Email: mohamedalphafornah@gmail.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Adam's Tech. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      const statuses = [
+        "Order Placed",
+        "Confirmed",
+        "Processing",
+        "Shipped",
+        "Out for Delivery",
+        "Delivered",
+      ];
+      const statusEmojis = ["📋", "✅", "⚙️", "🚚", "📍", "✓"];
+
+      function searchOrder() {
+        const orderNumber = document.getElementById("orderNumber").value.trim();
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+
+        if (!orderNumber || !phoneNumber) {
+          alert("Please enter both order number and phone number");
+          return;
+        }
+
+        const orders = StorageManager.getOrders();
+        const order = orders.find(
+          (o) =>
+            o.orderNumber === orderNumber && o.customer.phone === phoneNumber,
+        );
+
+        if (order) {
+          displayOrderTracking(order);
+        } else {
+          document.getElementById("noResult").style.display = "block";
+          document.getElementById("trackingResult").style.display = "none";
+        }
+      }
+
+      function displayOrderTracking(order) {
+        document.getElementById("noResult").style.display = "none";
+        document.getElementById("trackingResult").style.display = "block";
+
+        // Status timeline
+        let currentStatusIndex = Math.min(Math.floor(Math.random() * 6), 5);
+        let timelineHTML = "";
+
+        statuses.forEach((status, index) => {
+          const isCompleted = index <= currentStatusIndex;
+          const isActive = index === currentStatusIndex;
+          timelineHTML += `
+          <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+            <div style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: ${isCompleted ? "#10b981" : "#e5e7eb"}; color: ${isCompleted ? "white" : "#6b7280"}; font-size: 1.2rem; margin-right: 1rem; flex-shrink: 0;">
+              ${statusEmojis[index]}
+            </div>
+            <div>
+              <p style="margin: 0; font-weight: ${isActive ? "700" : "600"}; color: ${isActive ? "#3b82f6" : "#1f2937"};">${status}</p>
+              ${isCompleted ? '<p style="margin: 0.25rem 0 0; color: #6b7280; font-size: 0.85rem;">✓ Completed</p>' : '<p style="margin: 0.25rem 0 0; color: #6b7280; font-size: 0.85rem;">Pending</p>'}
+            </div>
+            ${index < statuses.length - 1 ? '<div style="position: absolute; left: 19px; top: 40px; width: 2px; height: 40px; background: ' + (isCompleted ? "#10b981" : "#e5e7eb") + ';"></div>' : ""}
+          </div>
+        `;
+        });
+        document.getElementById("statusTimeline").innerHTML = timelineHTML;
+
+        // Order details
+        document.getElementById("trackOrderNumber").textContent =
+          order.orderNumber;
+        document.getElementById("trackOrderDate").textContent = new Date(
+          order.date,
+        ).toLocaleDateString();
+        document.getElementById("trackDeliveryMethod").textContent =
+          order.delivery.method === "home" ? "Home Delivery" : "Store Pickup";
+        document.getElementById("trackEstimatedDelivery").textContent =
+          new Date(order.estimatedDelivery).toLocaleDateString();
+
+        // Items
+        let itemsHTML = "";
+        order.items.forEach((item) => {
+          itemsHTML += `
+          <div style="display: grid; grid-template-columns: 80px 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e5e7eb;">
+            <img src="${item.image}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;">
+            <div>
+              <p style="margin: 0; font-weight: 600;">${item.name}</p>
+              <p style="margin: 0.25rem 0 0; color: #6b7280; font-size: 0.9rem;">Quantity: ${item.quantity}</p>
+              <p style="margin: 0.25rem 0 0; color: #3b82f6; font-weight: 600;">Le ${(item.price * item.quantity).toLocaleString()}</p>
+            </div>
+          </div>
+        `;
+        });
+        document.getElementById("trackItems").innerHTML = itemsHTML;
+
+        // Total
+        document.getElementById("trackTotal").textContent =
+          "Le " + order.total.toLocaleString();
+      }
+
+      // Auto-track if order number in URL
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has("order")) {
+          document.getElementById("orderNumber").value = params.get("order");
+        }
+      });
+    </script>
+  </body>
+</html>

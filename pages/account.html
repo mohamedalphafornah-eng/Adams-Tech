@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account - Adam's Tech</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+      .account-menu {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      .menu-btn {
+        padding: 0.75rem 1.5rem;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+      .menu-btn.active {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+      }
+      .menu-btn:hover {
+        border-color: #3b82f6;
+      }
+      .section-content {
+        display: none;
+      }
+      .section-content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
+        <a href="/" class="logo">🔧 Adam's Tech</a>
+        <nav class="nav-main">
+          <a href="/">Home</a>
+          <a href="shop.html">Shop</a>
+        </nav>
+        <ul class="header-icons">
+          <li><a href="cart.html" class="icon-btn">🛒</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>👤 My Account</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container" style="margin-bottom: 3rem">
+      <div style="max-width: 900px; margin: 2rem auto">
+        <!-- MENU -->
+        <div class="account-menu">
+          <button class="menu-btn active" onclick="showSection('profile')">
+            👤 Profile
+          </button>
+          <button class="menu-btn" onclick="showSection('orders')">
+            📦 My Orders
+          </button>
+          <button class="menu-btn" onclick="showSection('addresses')">
+            📍 Addresses
+          </button>
+          <button class="menu-btn" onclick="showSection('wishlist')">
+            ♡ Wishlist
+          </button>
+          <button class="menu-btn" onclick="showSection('settings')">
+            ⚙️ Settings
+          </button>
+        </div>
+
+        <!-- PROFILE SECTION -->
+        <div class="section-content active" id="profile">
+          <div class="filters-panel">
+            <h2 style="margin-bottom: 1.5rem">Profile Information</h2>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" value="Customer Name" id="fullName" />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" value="customer@example.com" id="email" />
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" value="+23278268113" id="phone" />
+            </div>
+            <button
+              class="btn btn-primary"
+              onclick="alert('Profile updated!')"
+              style="width: 100%"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
+
+        <!-- ORDERS SECTION -->
+        <div class="section-content" id="orders">
+          <div class="filters-panel">
+            <h2 style="margin-bottom: 1.5rem">My Orders</h2>
+            <div id="ordersContainer">
+              <p style="color: #6b7280; text-align: center">
+                No orders yet. <a href="shop.html">Start shopping!</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADDRESSES SECTION -->
+        <div class="section-content" id="addresses">
+          <div class="filters-panel">
+            <h2 style="margin-bottom: 1.5rem">Saved Addresses</h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+                margin-bottom: 2rem;
+              "
+              id="addressesContainer"
+            >
+              <div
+                style="
+                  background: #f3f4f6;
+                  padding: 1rem;
+                  border-radius: 8px;
+                  border: 2px solid #e5e7eb;
+                "
+              >
+                <p style="font-weight: 600; margin: 0">Default Address</p>
+                <p style="color: #6b7280; margin: 0.5rem 0 0">
+                  123 Main Street
+                </p>
+                <p style="color: #6b7280; margin: 0">Freetown, Western Area</p>
+                <button
+                  style="
+                    background: none;
+                    border: none;
+                    color: #3b82f6;
+                    cursor: pointer;
+                    margin-top: 0.5rem;
+                    font-weight: 600;
+                  "
+                >
+                  Edit
+                </button>
+              </div>
+            </div>
+            <button
+              class="btn btn-primary"
+              onclick="alert('Add new address')"
+              style="width: 100%"
+            >
+              + Add New Address
+            </button>
+          </div>
+        </div>
+
+        <!-- WISHLIST SECTION -->
+        <div class="section-content" id="wishlist">
+          <div class="filters-panel">
+            <h2 style="margin-bottom: 1.5rem">My Wishlist</h2>
+            <div class="product-grid" id="wishlistProducts"></div>
+            <div id="emptyWishlist" style="text-align: center; padding: 2rem">
+              <p style="color: #6b7280">Your wishlist is empty</p>
+              <a
+                href="shop.html"
+                class="btn btn-primary"
+                style="margin-top: 1rem"
+                >Browse Products</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS SECTION -->
+        <div class="section-content" id="settings">
+          <div class="filters-panel">
+            <h2 style="margin-bottom: 1.5rem">Account Settings</h2>
+
+            <div style="margin-bottom: 1.5rem">
+              <label class="filter-checkbox">
+                <input type="checkbox" checked />
+                <strong style="margin-left: 0.5rem">Email Notifications</strong>
+                <p style="color: #6b7280; margin-top: 0.25rem">
+                  Receive order updates and promotions
+                </p>
+              </label>
+            </div>
+
+            <div style="margin-bottom: 1.5rem">
+              <label class="filter-checkbox">
+                <input type="checkbox" checked />
+                <strong style="margin-left: 0.5rem">SMS Notifications</strong>
+                <p style="color: #6b7280; margin-top: 0.25rem">
+                  Get delivery updates via SMS
+                </p>
+              </label>
+            </div>
+
+            <div style="margin-bottom: 2rem">
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <strong style="margin-left: 0.5rem">Newsletter</strong>
+                <p style="color: #6b7280; margin-top: 0.25rem">
+                  Subscribe to exclusive deals and news
+                </p>
+              </label>
+            </div>
+
+            <button
+              class="btn btn-secondary"
+              onclick="alert('Password changed!')"
+              style="width: 100%; margin-bottom: 1rem"
+            >
+              Change Password
+            </button>
+            <button
+              class="btn"
+              style="
+                width: 100%;
+                background: white;
+                border: 1px solid #e5e7eb;
+                color: #1f2937;
+              "
+              onclick="logout()"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Adam's Tech. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      function showSection(section) {
+        // Hide all sections
+        document
+          .querySelectorAll(".section-content")
+          .forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll(".menu-btn")
+          .forEach((el) => el.classList.remove("active"));
+
+        // Show selected section
+        document.getElementById(section).classList.add("active");
+        event.target.classList.add("active");
+
+        if (section === "orders") {
+          loadOrders();
+        } else if (section === "wishlist") {
+          loadWishlist();
+        }
+      }
+
+      function loadOrders() {
+        const orders = StorageManager.getOrders();
+        const container = document.getElementById("ordersContainer");
+
+        if (orders.length === 0) {
+          container.innerHTML =
+            '<p style="color: #6b7280; text-align: center;">No orders yet. <a href="shop.html">Start shopping!</a></p>';
+          return;
+        }
+
+        let html = "";
+        orders.forEach((order) => {
+          html += `
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <strong>${order.orderNumber}</strong>
+              <span style="background: #10b981; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">${order.status}</span>
+            </div>
+            <p style="color: #6b7280; margin: 0.5rem 0;">Date: ${new Date(order.date).toLocaleDateString()}</p>
+            <p style="color: #6b7280; margin: 0.5rem 0;">Items: ${order.items.length}</p>
+            <p style="color: #3b82f6; font-weight: 700; margin: 0.5rem 0;">Le ${order.total.toLocaleString()}</p>
+            <a href="order-tracking.html?order=${order.orderNumber}" style="color: #3b82f6; text-decoration: none; font-weight: 600;">Track Order →</a>
+          </div>
+        `;
+        });
+        container.innerHTML = html;
+      }
+
+      function loadWishlist() {
+        const wishlist = wishlistManager.wishlist;
+        const container = document.getElementById("wishlistProducts");
+
+        if (wishlist.length === 0) {
+          document.getElementById("emptyWishlist").style.display = "block";
+          container.innerHTML = "";
+          return;
+        }
+
+        document.getElementById("emptyWishlist").style.display = "none";
+        displayProducts(wishlist, "wishlistProducts");
+      }
+
+      function logout() {
+        if (confirm("Are you sure you want to logout?")) {
+          StorageManager.saveUser(null);
+          window.location.href = "/";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadOrders();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - Adam's Tech</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
+        <a href="/" class="logo">🔧 Adam's Tech</a>
+        <button class="mobile-menu-toggle">☰</button>
+        <nav class="nav-main">
+          <a href="/">Home</a>
+          <a href="shop.html">Shop</a>
+          <a href="deals.html">Deals</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." id="searchInput" />
+          <button
+            onclick="handleSearch(document.getElementById('searchInput').value)"
+          >
+            🔍
+          </button>
+        </div>
+        <ul class="header-icons">
+          <li>
+            <a href="cart.html" class="icon-btn"
+              >🛒 <span class="badge-count cart-badge"></span
+            ></a>
+          </li>
+          <li>
+            <a href="#" class="icon-btn"
+              >♡ <span class="badge-count wishlist-badge"></span
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="container" style="margin: 1.5rem 0">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="shop.html">Shop</a>
+        <span>/</span>
+        <span id="breadcrumbCategory">Product</span>
+      </div>
+    </div>
+
+    <!-- PRODUCT DETAILS -->
+    <main class="container" style="margin-bottom: 3rem">
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          margin: 2rem 0;
+        "
+        id="productContainer"
+      >
+        <!-- Will be populated by JavaScript -->
+      </div>
+
+      <!-- RELATED PRODUCTS -->
+      <section class="section" style="margin-top: 3rem">
+        <h2 class="section-title">Related Products</h2>
+        <div class="product-grid" id="relatedProducts"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>🔧 Adam's Tech</h3>
+          <p>Your trusted electronics store in Sierra Leone.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="order-tracking.html">Track Order</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Adam's Tech. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="../js/products.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      let currentProduct = null;
+
+      function getProductIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return parseInt(params.get("id"));
+      }
+
+      function loadProductDetails() {
+        const productId = getProductIdFromURL();
+        currentProduct = products.find((p) => p.id === productId);
+
+        if (!currentProduct) {
+          document.getElementById("productContainer").innerHTML =
+            '<div class="empty-state" style="grid-column: 1/-1;"><h2>Product Not Found</h2></div>';
+          return;
+        }
+
+        const discount = currentProduct.originalPrice
+          ? Math.round(
+              ((currentProduct.originalPrice - currentProduct.price) /
+                currentProduct.originalPrice) *
+                100,
+            )
+          : 0;
+        const stockClass =
+          currentProduct.stock > 20
+            ? "In Stock"
+            : currentProduct.stock > 0
+              ? "Low Stock"
+              : "Out of Stock";
+        const isInWishlist = wishlistManager.isInWishlist(productId);
+
+        const productHTML = `
+        <div>
+          <!-- Product Images -->
+          <div style="background: #f3f4f6; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+            <img src="${currentProduct.image}" alt="${currentProduct.name}" style="width: 100%; border-radius: 8px;">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+            <div style="background: #f3f4f6; border-radius: 8px; padding: 0.5rem; cursor: pointer;"><img src="${currentProduct.image}" style="width: 100%; border-radius: 4px;"></div>
+            <div style="background: #f3f4f6; border-radius: 8px; padding: 0.5rem; cursor: pointer;"><img src="${currentProduct.image}" style="width: 100%; border-radius: 4px;"></div>
+            <div style="background: #f3f4f6; border-radius: 8px; padding: 0.5rem; cursor: pointer;"><img src="${currentProduct.image}" style="width: 100%; border-radius: 4px;"></div>
+            <div style="background: #f3f4f6; border-radius: 8px; padding: 0.5rem; cursor: pointer;"><img src="${currentProduct.image}" style="width: 100%; border-radius: 4px;"></div>
+          </div>
+        </div>
+
+        <div>
+          <!-- Product Info -->
+          <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${currentProduct.name}</h1>
+          
+          ${currentProduct.badge ? `<span class="badge badge-${currentProduct.badge.toLowerCase()}">${currentProduct.badge}</span>` : ""}
+          
+          <div class="product-rating" style="margin: 1rem 0;">
+            <span class="stars" style="font-size: 1.2rem;">${"★".repeat(Math.floor(currentProduct.rating))}${"☆".repeat(5 - Math.floor(currentProduct.rating))}</span>
+            <span style="margin-left: 0.5rem;">${currentProduct.rating} (${currentProduct.reviews} reviews)</span>
+          </div>
+
+          <div style="font-size: 1.3rem; margin: 1.5rem 0; display: flex; gap: 1rem; align-items: center;">
+            <span style="color: #3b82f6; font-weight: 700;">Le ${currentProduct.price.toLocaleString()}</span>
+            ${currentProduct.originalPrice ? `<span style="color: #6b7280; text-decoration: line-through;">Le ${currentProduct.originalPrice.toLocaleString()}</span>` : ""}
+            ${discount > 0 ? `<span style="background: #ef4444; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">Save ${discount}%</span>` : ""}
+          </div>
+
+          <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <p><strong>Availability:</strong> <span class="${currentProduct.stock > 0 ? "stock-status in-stock" : "stock-status out-of-stock"}">${stockClass}</span></p>
+            <p><strong>Stock Available:</strong> ${currentProduct.stock} units</p>
+          </div>
+
+          <div class="form-group">
+            <label><strong>Quantity:</strong></label>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <button onclick="decreaseQty()" style="width: 40px; height: 40px; border: 1px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer;">−</button>
+              <input type="number" id="quantityInput" value="1" min="1" max="${currentProduct.stock}" style="width: 80px; text-align: center; border: 1px solid #e5e7eb; padding: 0.5rem; border-radius: 6px;">
+              <button onclick="increaseQty()" style="width: 40px; height: 40px; border: 1px solid #e5e7eb; background: white; border-radius: 6px; cursor: pointer;">+</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin: 1.5rem 0;">
+            <button class="btn btn-primary" onclick="addToCartFromDetail()" style="padding: 1rem; font-size: 1.1rem;">
+              🛒 Add to Cart
+            </button>
+            <button class="btn-wishlist" onclick="toggleWishlistDetail()" style="width: 50px; height: 50px; ${isInWishlist ? "background: #ef4444; color: white; border-color: #ef4444;" : ""}">
+              ${isInWishlist ? "❤️" : "♡"}
+            </button>
+          </div>
+
+          <button class="btn btn-secondary" style="width: 100%; padding: 1rem;" onclick="buyNow()">Buy Now</button>
+
+          <!-- Product Specs -->
+          <div style="margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+            <h3 style="margin-bottom: 1rem;">📋 Specifications</h3>
+            <div id="specsContainer"></div>
+          </div>
+
+          <!-- Description -->
+          <div style="margin-top: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+            <h3 style="margin-bottom: 1rem;">📝 Description</h3>
+            <p>${currentProduct.description}</p>
+          </div>
+        </div>
+      `;
+
+        document.getElementById("productContainer").innerHTML = productHTML;
+
+        // Display specs
+        if (currentProduct.specs) {
+          const specsHTML = Object.entries(currentProduct.specs)
+            .map(
+              ([key, value]) =>
+                `<p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}</p>`,
+            )
+            .join("");
+          document.getElementById("specsContainer").innerHTML = specsHTML;
+        }
+
+        // Update breadcrumb
+        document.getElementById("breadcrumbCategory").textContent =
+          currentProduct.category;
+
+        // Display related products
+        const related = products
+          .filter(
+            (p) =>
+              p.category === currentProduct.category &&
+              p.id !== currentProduct.id,
+          )
+          .slice(0, 8);
+        displayProducts(related, "relatedProducts");
+      }
+
+      function decreaseQty() {
+        const input = document.getElementById("quantityInput");
+        input.value = Math.max(1, parseInt(input.value) - 1);
+      }
+
+      function increaseQty() {
+        const input = document.getElementById("quantityInput");
+        input.value = Math.min(currentProduct.stock, parseInt(input.value) + 1);
+      }
+
+      function addToCartFromDetail() {
+        const quantity = parseInt(
+          document.getElementById("quantityInput").value,
+        );
+        cartManager.addToCart(currentProduct, quantity);
+      }
+
+      function buyNow() {
+        addToCartFromDetail();
+        window.location.href = "checkout.html";
+      }
+
+      function toggleWishlistDetail() {
+        const btn = event.target.closest(".btn-wishlist");
+        const isAdded = wishlistManager.toggleWishlist(currentProduct);
+        btn.textContent = isAdded ? "❤️" : "♡";
+        btn.classList.toggle("active");
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProductDetails();
+        cartManager.updateBadge();
+        wishlistManager.updateBadge();
+      });
+    </script>
+  </body>
+</html>
